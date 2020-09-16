@@ -4,11 +4,25 @@ import "./contact-list.css";
 // Include Contact item
 import ContactItem from "./contact-item/contact-item";
 
-const ContactList = () => {
+const ContactList = ({ ContactList }) => {
+  const list = ContactList.map((item) => {
+    return (
+      <ContactItem
+        key={item.id}
+        name={item.name}
+        gender={item.gender}
+        address={item.address}
+        image={item.image}
+        phone={item.phone}
+        email={item.email}
+      />
+    );
+  });
   return (
     <Fragment>
-      <h2>Contact List</h2>
-      <ContactItem />
+      <ul className="list-group pull-down" id="contact-list">
+        {list}
+      </ul>
     </Fragment>
   );
 };
