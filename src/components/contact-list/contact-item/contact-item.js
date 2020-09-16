@@ -4,7 +4,23 @@ import "./contact-item.css";
 class ContactItem extends React.Component {
   render() {
     console.log("Inside contact item => ", this.props);
-    const { name, gender, address, phone, email, image } = this.props;
+    const {
+      name,
+      gender,
+      address,
+      phone,
+      email,
+      image,
+      favorite,
+      isFavorite,
+    } = this.props;
+
+    let isNotFavorite = "far fa-star ";
+    if (favorite) {
+      isNotFavorite = "fas fa-star ";
+    } else {
+      isNotFavorite = "far fa-star";
+    }
     return (
       <li className="list-group-item">
         <div className="row w-100">
@@ -17,8 +33,9 @@ class ContactItem extends React.Component {
           </div>
           <div className="col-12 col-sm-6 col-md-9 text-center text-sm-left">
             <span
-              className="fa fa-mobile fa-2x text-success float-right pulse"
+              className={`${isNotFavorite} fa-2x text-success float-right pulse`}
               title="online now"
+              onClick={isFavorite}
             ></span>
             <label className="name lead">{name}</label>
             <br />

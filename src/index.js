@@ -17,6 +17,7 @@ class App extends React.Component {
         email: "mike.ana@example.com",
         image: "https://api.randomuser.me/portraits/med/men/1.jpg",
         gender: "m",
+        favorite: false,
       },
       {
         id: 2,
@@ -26,6 +27,7 @@ class App extends React.Component {
         email: "seth.frazier@example.com",
         image: "https://api.randomuser.me/portraits/med/men/78.jpg",
         gender: "m",
+        favorite: false,
       },
       {
         id: 3,
@@ -35,6 +37,7 @@ class App extends React.Component {
         email: "rosemary.porter@example.com",
         image: "https://api.randomuser.me/portraits/med/women/1.jpg",
         gender: "w",
+        favorite: false,
       },
       {
         id: 4,
@@ -44,8 +47,13 @@ class App extends React.Component {
         email: "debbie.schmidt@example.com",
         image: "https://api.randomuser.me/portraits/med/women/11.jpg",
         gender: "w",
+        favorite: true,
       },
     ],
+  };
+
+  isFavorite = (id) => {
+    console.log("ID => ", id);
   };
 
   render() {
@@ -59,7 +67,10 @@ class App extends React.Component {
               className="panel-collapse collapse show"
               aria-expanded="true"
             >
-              <ContactList ContactList={this.state.List} />
+              <ContactList
+                ContactList={this.state.List}
+                isFavorite={this.isFavorite}
+              />
             </div>
           </div>
         </div>
