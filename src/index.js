@@ -53,7 +53,12 @@ class App extends React.Component {
   };
 
   isFavorite = (id) => {
-    console.log("ID => ", id);
+    const index = this.state.List.findIndex((elem) => elem.id === id);
+    const tmp = this.state.List.slice();
+    tmp[index].favorite = !tmp[index].favorite;
+    this.setState({
+      favorite: !this.tmp,
+    });
   };
 
   render() {
