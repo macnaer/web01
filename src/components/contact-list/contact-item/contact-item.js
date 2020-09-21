@@ -3,7 +3,7 @@ import "./contact-item.css";
 
 class ContactItem extends React.Component {
   render() {
-    console.log("Inside contact item => ", this.props);
+    // console.log("Inside contact item => ", this.props);
     const {
       name,
       gender,
@@ -13,6 +13,7 @@ class ContactItem extends React.Component {
       image,
       favorite,
       isFavorite,
+      editContact,
     } = this.props;
 
     const URL = `https://api.randomuser.me/portraits/med/${gender}/${image}.jpg`;
@@ -39,6 +40,9 @@ class ContactItem extends React.Component {
               title="online now"
               onClick={isFavorite}
             ></span>
+            <span className="float-right pulse" onClick={editContact}>
+              <i className="far fa-edit fa-2x"></i>
+            </span>
             <label className="name lead">{name}</label>
             <br />
             <span

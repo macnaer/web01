@@ -7,6 +7,7 @@ import "./index.css";
 
 // Include components
 import ContactList from "./components/contact-list/constact-list";
+import EditContact from "./components/edit-contact/edit-contact";
 import NotFound from "./components/notFound/notFound";
 
 class App extends React.Component {
@@ -53,6 +54,7 @@ class App extends React.Component {
         favorite: true,
       },
     ],
+    currentContact: "",
   };
 
   isFavorite = (id) => {
@@ -62,6 +64,12 @@ class App extends React.Component {
     this.setState({
       favorite: this.tmp,
     });
+  };
+
+  editContact = (id) => {
+    const index = this.state.List.findIndex((elem) => elem.id === id);
+    const currentContact = this.state.List[index];
+    console.log("Current Contact = > ", currentContact);
   };
 
   render() {
@@ -75,7 +83,15 @@ class App extends React.Component {
               <ContactList
                 ContactList={this.state.List}
                 isFavorite={this.isFavorite}
+                editContact={this.editContact}
               />
+            )}
+          />
+          <Route
+            path="/edit"
+            exact
+            render={() => (
+              <EditContact currentContact={this.state.currentContact} />
             )}
           />
           <Route component={NotFound} />

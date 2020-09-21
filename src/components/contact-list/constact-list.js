@@ -4,7 +4,7 @@ import "./contact-list.css";
 // Include Contact item
 import ContactItem from "./contact-item/contact-item";
 
-const ContactList = ({ ContactList, isFavorite }) => {
+const ContactList = ({ ContactList, isFavorite, editContact }) => {
   const list = ContactList.map((item) => {
     return (
       <ContactItem
@@ -17,6 +17,7 @@ const ContactList = ({ ContactList, isFavorite }) => {
         email={item.email}
         favorite={item.favorite}
         isFavorite={() => isFavorite(item.id)}
+        editContact={() => editContact(item.id)}
       />
     );
   });
