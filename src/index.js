@@ -69,7 +69,9 @@ class App extends React.Component {
   editContact = (id) => {
     const index = this.state.List.findIndex((elem) => elem.id === id);
     const currentContact = this.state.List[index];
-    console.log("Current Contact = > ", currentContact);
+    this.setState({
+      currentContact: currentContact,
+    });
   };
 
   render() {
