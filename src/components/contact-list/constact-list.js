@@ -22,9 +22,19 @@ const ContactList = ({ ContactList, isFavorite }) => {
   });
   return (
     <Fragment>
-      <ul className="list-group pull-down" id="contact-list">
-        {list}
-      </ul>
+      <div className="container">
+        <h1>Contact list</h1>
+        <div className="card card-default" id="card_contacts">
+          <div
+            id="contacts"
+            className="panel-collapse collapse show"
+            aria-expanded="true"
+          ></div>
+          <ul className="list-group pull-down" id="contact-list">
+            {list}
+          </ul>
+        </div>
+      </div>
     </Fragment>
   );
 };

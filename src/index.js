@@ -1,52 +1,55 @@
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
+import uuid from "react-uuid";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
 // Include components
 import ContactList from "./components/contact-list/constact-list";
+import NotFound from "./components/notFound/notFound";
 
 class App extends React.Component {
   state = {
     List: [
       {
-        id: 1,
+        id: uuid(),
         name: "Mike Anamendolla",
         address: "5842 Hillcrest Rd",
         phone: "(870) 288-4149",
         email: "mike.ana@example.com",
-        image: "https://api.randomuser.me/portraits/med/men/1.jpg",
-        gender: "m",
+        image: 57,
+        gender: "men",
         favorite: false,
       },
       {
-        id: 2,
+        id: uuid(),
         name: "Seth Frazier",
         address: "7396 E North St",
         phone: "(560) 180-4143",
         email: "seth.frazier@example.com",
-        image: "https://api.randomuser.me/portraits/med/men/78.jpg",
-        gender: "m",
+        image: 53,
+        gender: "men",
         favorite: false,
       },
       {
-        id: 3,
+        id: uuid(),
         name: "Rosemary Porter",
         address: "5267 Cackson St",
         phone: "(497) 160-9776",
         email: "rosemary.porter@example.com",
-        image: "https://api.randomuser.me/portraits/med/women/1.jpg",
-        gender: "w",
+        image: 53,
+        gender: "women",
         favorite: false,
       },
       {
-        id: 4,
+        id: uuid(),
         name: "Debbie Schmidt",
         address: "3903 W Alexander Rd",
         phone: "(867) 322-1852",
         email: "debbie.schmidt@example.com",
-        image: "https://api.randomuser.me/portraits/med/women/11.jpg",
-        gender: "w",
+        image: 11,
+        gender: "women",
         favorite: true,
       },
     ],
@@ -57,29 +60,27 @@ class App extends React.Component {
     const tmp = this.state.List.slice();
     tmp[index].favorite = !tmp[index].favorite;
     this.setState({
-      favorite: !this.tmp,
+      favorite: this.tmp,
     });
   };
 
   render() {
     return (
-      <Fragment>
-        <div className="container">
-          <h1>Contact list</h1>
-          <div className="card card-default" id="card_contacts">
-            <div
-              id="contacts"
-              className="panel-collapse collapse show"
-              aria-expanded="true"
-            >
+      <Router>
+        <Switch>
+          <Route
+            path="/"
+            exact
+            render={() => (
               <ContactList
                 ContactList={this.state.List}
                 isFavorite={this.isFavorite}
               />
-            </div>
-          </div>
-        </div>
-      </Fragment>
+            )}
+          />
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
     );
   }
 }

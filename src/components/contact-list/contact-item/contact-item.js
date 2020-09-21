@@ -15,6 +15,8 @@ class ContactItem extends React.Component {
       isFavorite,
     } = this.props;
 
+    const URL = `https://api.randomuser.me/portraits/med/${gender}/${image}.jpg`;
+
     let isNotFavorite = "far fa-star ";
     if (favorite) {
       isNotFavorite = "fas fa-star ";
@@ -26,7 +28,7 @@ class ContactItem extends React.Component {
         <div className="row w-100">
           <div className="col-12 col-sm-6 col-md-3 px-0">
             <img
-              src={image}
+              src={URL}
               alt="Mike Anamendolla"
               className="rounded-circle mx-auto d-block img-fluid"
             />
