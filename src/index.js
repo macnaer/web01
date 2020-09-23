@@ -56,6 +56,22 @@ class App extends React.Component {
       },
     ],
     currentContact: "",
+    findContact: "",
+  };
+
+  onSearch = (contactName) => {
+    this.setState({
+      findContact: contactName,
+    });
+  };
+
+  onShowContactList = (List, findContact) => {
+    if (findContact.length === 0) {
+      return List;
+    }
+    return List.filter((item) => {
+      return item.name.toLowerCase().indexOf(findContact.toLowerCase()) > -1;
+    });
   };
 
   isFavorite = (id) => {
@@ -116,16 +132,20 @@ class App extends React.Component {
   };
 
   render() {
+    const showContacts = this.onShowContactList(
+      this.state.List,
+      this.state.findContact
+    );
     return (
       <Router>
-        <Header />
+        <Header onSearch={this.onSearch} />
         <Switch>
           <Route
             path="/"
             exact
             render={() => (
               <ContactList
-                ContactList={this.state.List}
+                ContactList={showContacts}
                 isFavorite={this.isFavorite}
                 editContact={this.editContact}
                 onDeleteContact={this.onDeleteContact}

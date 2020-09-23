@@ -37,7 +37,7 @@ const ContactList = ({
             aria-expanded="true"
           ></div>
           <ul className="list-group pull-down" id="contact-list">
-            {list}
+            {list.length !== 0 ? list : <h2>Contact list is empty</h2>}
           </ul>
         </div>
       </div>
