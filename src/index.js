@@ -12,52 +12,49 @@ import NotFound from "./components/notFound/notFound";
 import Header from "./components/header/header";
 
 class App extends React.Component {
+  URL = "https://react-contact-list-a6f1f.firebaseio.com/List.json";
   state = {
-    List: [
-      {
-        id: uuid(),
-        name: "Mike Anamendolla",
-        address: "5842 Hillcrest Rd",
-        phone: "(870) 288-4149",
-        email: "mike.ana@example.com",
-        image: 57,
-        gender: "men",
-        favorite: false,
-      },
-      {
-        id: uuid(),
-        name: "Seth Frazier",
-        address: "7396 E North St",
-        phone: "(560) 180-4143",
-        email: "seth.frazier@example.com",
-        image: 53,
-        gender: "men",
-        favorite: false,
-      },
-      {
-        id: uuid(),
-        name: "Rosemary Porter",
-        address: "5267 Cackson St",
-        phone: "(497) 160-9776",
-        email: "rosemary.porter@example.com",
-        image: 53,
-        gender: "women",
-        favorite: false,
-      },
-      {
-        id: uuid(),
-        name: "Debbie Schmidt",
-        address: "3903 W Alexander Rd",
-        phone: "(867) 322-1852",
-        email: "debbie.schmidt@example.com",
-        image: 11,
-        gender: "women",
-        favorite: true,
-      },
-    ],
+    List: [],
     currentContact: "",
     findContact: "",
   };
+
+  componentDidMount() {
+    this.UpdateContactList();
+  }
+
+  UpdateContactList = () => {
+    fetch(this.URL)
+      .then((responce) => {
+        return responce.json();
+      })
+      .then((data) => {
+        if (data == null) {
+          this.setState({
+            List: [],
+          });
+        } else {
+          this.setState({
+            List: data,
+          });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  async SaveData(newList) {
+    await fetch(this.URL, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(newList),
+    })
+      .then((responce) => {
+        console.log("Responce => ", responce);
+      })
+      .catch((err) => console.log(err));
+  }
 
   onSearch = (contactName) => {
     this.setState({
@@ -81,6 +78,7 @@ class App extends React.Component {
     this.setState({
       favorite: this.tmp,
     });
+    this.SaveData(this.state.List);
   };
   onDeleteContact = (id) => {
     const index = this.state.List.findIndex((elem) => elem.id === id);
@@ -88,6 +86,7 @@ class App extends React.Component {
     const partOne = this.state.List.slice(0, index);
     const partTwo = this.state.List.slice(index + 1);
     const newList = [...partOne, ...partTwo];
+    this.SaveData(newList);
     this.setState((state) => {
       return {
         List: newList,
@@ -126,6 +125,7 @@ class App extends React.Component {
     const partOne = this.state.List.slice(0, index);
     const partTwo = this.state.List.slice(index + 1);
     const newList = [...partOne, editedContact, ...partTwo];
+    this.SaveData(newList);
     this.setState({
       List: newList,
     });
