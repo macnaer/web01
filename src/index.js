@@ -9,6 +9,7 @@ import "./index.css";
 import ContactList from "./components/contact-list/constact-list";
 import EditContact from "./components/edit-contact/edit-contact";
 import NotFound from "./components/notFound/notFound";
+import Header from "./components/header/header";
 
 class App extends React.Component {
   state = {
@@ -65,6 +66,18 @@ class App extends React.Component {
       favorite: this.tmp,
     });
   };
+  onDeleteContact = (id) => {
+    const index = this.state.List.findIndex((elem) => elem.id === id);
+
+    const partOne = this.state.List.slice(0, index);
+    const partTwo = this.state.List.slice(index + 1);
+    const newList = [...partOne, ...partTwo];
+    this.setState((state) => {
+      return {
+        List: newList,
+      };
+    });
+  };
 
   editContact = (id) => {
     const index = this.state.List.findIndex((elem) => elem.id === id);
@@ -74,9 +87,38 @@ class App extends React.Component {
     });
   };
 
+  onEditCurrentContact = (
+    id,
+    name,
+    address,
+    telnumber,
+    email,
+    image,
+    gender
+  ) => {
+    const index = this.state.List.findIndex((elem) => elem.id === id);
+    let editedContact = {
+      id: id,
+      name: name,
+      address: address,
+      image: image,
+      phone: telnumber,
+      gender: gender,
+      email: email,
+      star: false,
+    };
+    const partOne = this.state.List.slice(0, index);
+    const partTwo = this.state.List.slice(index + 1);
+    const newList = [...partOne, editedContact, ...partTwo];
+    this.setState({
+      List: newList,
+    });
+  };
+
   render() {
     return (
       <Router>
+        <Header />
         <Switch>
           <Route
             path="/"
@@ -86,6 +128,7 @@ class App extends React.Component {
                 ContactList={this.state.List}
                 isFavorite={this.isFavorite}
                 editContact={this.editContact}
+                onDeleteContact={this.onDeleteContact}
               />
             )}
           />
@@ -93,7 +136,10 @@ class App extends React.Component {
             path="/edit"
             exact
             render={() => (
-              <EditContact currentContact={this.state.currentContact} />
+              <EditContact
+                currentContact={this.state.currentContact}
+                onEditCurrentContact={this.onEditCurrentContact}
+              />
             )}
           />
           <Route component={NotFound} />

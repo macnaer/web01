@@ -15,6 +15,7 @@ class ContactItem extends React.Component {
       favorite,
       isFavorite,
       editContact,
+      onDeleteContact,
     } = this.props;
 
     const URL = `https://api.randomuser.me/portraits/med/${gender}/${image}.jpg`;
@@ -48,6 +49,11 @@ class ContactItem extends React.Component {
             >
               <i className="far fa-edit fa-2x"></i>
             </Link>
+            <span
+              className="fa fa-trash fa-2x text-danger float-right pulse"
+              title="Delete"
+              onClick={onDeleteContact}
+            ></span>
             <label className="name lead">{name}</label>
             <br />
             <span

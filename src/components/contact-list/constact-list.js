@@ -4,7 +4,12 @@ import "./contact-list.css";
 // Include Contact item
 import ContactItem from "./contact-item/contact-item";
 
-const ContactList = ({ ContactList, isFavorite, editContact }) => {
+const ContactList = ({
+  ContactList,
+  isFavorite,
+  editContact,
+  onDeleteContact,
+}) => {
   const list = ContactList.map((item) => {
     return (
       <ContactItem
@@ -18,13 +23,13 @@ const ContactList = ({ ContactList, isFavorite, editContact }) => {
         favorite={item.favorite}
         isFavorite={() => isFavorite(item.id)}
         editContact={() => editContact(item.id)}
+        onDeleteContact={() => onDeleteContact(item.id)}
       />
     );
   });
   return (
     <Fragment>
       <div className="container">
-        <h1>Contact list</h1>
         <div className="card card-default" id="card_contacts">
           <div
             id="contacts"
